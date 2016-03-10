@@ -5,7 +5,9 @@ Dragonfly.app.configure do
   plugin :imagemagick
 
   generator :avatarly do |content, *args|
-    img = Avatarly.generate_avatar(args[0], args[1])
+    img = Avatarly.generate_avatar(args[0], args[1].merge({
+      font: Rails.root.join('vendor', 'assets', 'fonts', 'Roboto.ttf').to_s
+    }))
     content.update(img)
   end
 
