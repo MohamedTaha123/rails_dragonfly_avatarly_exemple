@@ -6,6 +6,15 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'users#index'
 
+  get "avatar/:size/:background/:text", to: Dragonfly.app.endpoint { |params, app|
+    app.generate(:avatarly, URI.unescape(params[:text]),
+      {
+        size: params[:size],
+        background_color: "##{params[:background]}"
+      }
+    )
+  }, as: :avatar
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
